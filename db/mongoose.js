@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://jehielmartinez:WJqBVU4yg29aECx@ds121406.mlab.com:21406/oversight');
-
+mongoose.connect('mongodb://localhost:27017/StockControl');
+    
 module.exports = {
     mongoose
-};
+}

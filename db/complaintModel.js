@@ -1,17 +1,17 @@
 const mongoose = require('mongoose');
 
-let complaint = new mongoose.Schema({
-    type: String,
+let complaintSchema = new mongoose.Schema({
+    complaintType: String,
     location: {
         latitude: Number,
         longitude: Number,
         string: String
     },
     body: String,
-    createdAt: Number,
+    createdAt: String,
     status: String
 });
 
-let complaintModel = mongoose.model('Complaint', complaint);
+let complaint = mongoose.model('complaint', complaintSchema);
 
-module.exports = {complaintModel}
+module.exports = {complaint}
