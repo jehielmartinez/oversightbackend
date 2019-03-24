@@ -8,7 +8,7 @@ let routes = (io) => {
 
 //Save Complaint to DB
     router.post('/savecomplaint', (req, res) => {
-        const data = req.body.complaint;
+        const data = req.body;
 
         let newComplaint = new complaint({
             complaintType: data.type,

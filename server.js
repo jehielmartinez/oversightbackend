@@ -14,7 +14,8 @@ const io = socketIO(server);
 const complaintRoutes = require('./routes/complaintRoutes')(io);
 
 //DB Connection
-mongoose.connect('mongodb://localhost:27017/oversight', { useNewUrlParser: true });
+const connectionString = process.env.DATABASE_URI || 'mongodb://localhost:27017/oversight';
+mongoose.connect(connectionString, { useNewUrlParser: true });
 
 
 var allowCrossDomain = function(req, res, next) {
@@ -36,5 +37,14 @@ app.use('/api/complaints', complaintRoutes);
 io.on('connection', (socket) => {
     console.log('Client Connected');
 });
+
+//index.html render
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('oversightclient/build'));
+  
+    app.get('/', (req, res) => {
+      res.sendFile(path.resolve(__dirname, 'oversightclient', 'build', 'index.html'));
+    });
+  }
 
 server.listen(port, () => console.log(`listening on http://localhost:${port}`));
