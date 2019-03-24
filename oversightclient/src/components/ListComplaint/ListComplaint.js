@@ -5,7 +5,7 @@ import Complaint from './Complaint';
 
 class ListComplaint extends Component {
     state={
-        endpoint: 'http://localhost:4000',
+        endpoint: `${window.location.hostname}`,
         complaints: [],
         newComplaint: {}
       }
