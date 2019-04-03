@@ -4,7 +4,6 @@ const mongoose = require('mongoose')
 const socketIO = require('socket.io');
 const http = require('http');
 
-
 const app = express();
 const port = process.env.PORT || 4000;
 const server = http.createServer(app);
@@ -12,6 +11,7 @@ const io = socketIO(server);
 
 //Require Routes
 const complaintRoutes = require('./routes/complaintRoutes')(io);
+const publicationRoutes = require('./routes/publicationRoutes')(io);
 
 //DB Connection
 const connectionString = process.env.DATABASE_URI || 'mongodb://localhost:27017/oversight';
@@ -29,16 +29,17 @@ var allowCrossDomain = function(req, res, next) {
 //BodyParser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(allowCrossDomain);  
+app.use(allowCrossDomain);
 
 //API Routes
-app.use('/api/complaints', complaintRoutes);
+app.use('/server/complaints', complaintRoutes);
+app.use('/server/publications', publicationRoutes);
 
 io.on('connection', (socket) => {
     console.log('Client Connected');
 });
 
-//index.html render
+//index.html client render
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('oversightclient/build'));
   
