@@ -31,7 +31,8 @@ let routes = (io) => {
             content: req.body.content,
             createdAt: moment().toISOString(),
             media: image,
-            user: req.body.user
+            user: req.body.user,
+            mediaExist: req.body.mediaExist
         });
         await newPublication.save()
             .then(()=>{

@@ -19,6 +19,9 @@ let publicationSchema = new mongoose.Schema({
     },
     likes:  {
         type: Array
+    },
+    mediaExist: {
+        type: Boolean
     }
 });
 
