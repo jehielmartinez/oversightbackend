@@ -10,9 +10,9 @@ const upload = multer({
       fileSize: 2000000 //2Mb
     },
     fileFilter(req, file, cb) {
-      if (!file.originalname.match(/\.(png|jpeg|jpg)$/)){
+        if (!file.originalname.match(/\.(png|jpeg|jpg)$/)){
         return cb(new Error('Please upload an image file'))
-      }
+      } 
       cb(undefined, true)
     }
   });
@@ -20,17 +20,22 @@ const upload = multer({
 let routes = (io) => {
 
     //Save New Publication
-    router.post('/publish', upload.single('image'), async (req, res) => {
+    router.post('/publish', upload.single('media'), async (req, res) => {
+        let image
+        if (req.file) {
+            image = req.file.buffer
+        }else {
+            image = null
+        }
         let newPublication = new publication({
             content: req.body.content,
             createdAt: moment().toISOString(),
-            image: req.file.buffer,
+            media: image,
             user: req.body.user
         });
-
         await newPublication.save()
             .then(()=>{
-                res.status(200);
+                res.status(200).send({message: 'Published'});
             }, (error)=>{
                 throw new Error(error);
             });
@@ -42,10 +47,10 @@ let routes = (io) => {
 
 
     //Get Image from ID
-    router.get('/:id/image', async (req, res) => {
-        await publication.findById(req.params.id).select('+image').then((publication)=>{
+    router.get('/:id/media', async (req, res) => {
+        await publication.findById(req.params.id).select('+media').then((publication)=>{
             res.set('Content-Type', 'image/jpg')
-            res.send(publication.image)
+            res.send(publication.media)
         },(err)=>{
             throw new Error(err);
         });

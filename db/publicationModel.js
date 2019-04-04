@@ -7,7 +7,7 @@ let publicationSchema = new mongoose.Schema({
     content: {
         type: String
     },
-    image: {
+    media: {
         type: Buffer,
         select: false
     },
