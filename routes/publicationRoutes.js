@@ -29,7 +29,7 @@ let routes = (io) => {
         }
         let newPublication = new publication({
             content: req.body.content,
-            createdAt: moment().toISOString(),
+            createdAt: moment().valueOf(),
             media: image,
             user: req.body.user,
             mediaExist: req.body.mediaExist
@@ -49,9 +49,9 @@ let routes = (io) => {
 
     //Get Image from ID
     router.get('/:id/media', async (req, res) => {
-        await publication.findById(req.params.id).select('+media').then((publication)=>{
-            res.set('Content-Type', 'image/jpg')
-            res.send(publication.media)
+        await publication.findById(req.params.id).select('+media').then((publication) => {
+            res.set('Content-Type', 'image/jpg');
+            res.send(publication.media);
         },(err)=>{
             throw new Error(err);
         });
