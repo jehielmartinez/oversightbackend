@@ -22,11 +22,13 @@ let routes = (io) => {
     //Save New Publication
     router.post('/publish', upload.single('media'), async (req, res) => {
         let image
+        
         if (req.file) {
             image = req.file.buffer
-        }else {
+        } else {
             image = null
         }
+
         let newPublication = new publication({
             content: req.body.content,
             createdAt: moment().valueOf(),
@@ -34,48 +36,47 @@ let routes = (io) => {
             user: req.body.user,
             mediaExist: req.body.mediaExist
         });
-        await newPublication.save()
-            .then(()=>{
-                res.status(200).send({message: 'Published'});
-            }, (error)=>{
-                throw new Error(error);
-            });
 
-        res.send()
-    },(error, req, res, next) => {
-        res.status(400).send({error: error.message})
+        try {
+            await newPublication.save()
+            res.status(201).send({message: 'publication success'});
+        } catch (err) {
+            // throw new Error(err);
+            res.status(400).send({error: err})
+        }
     });
 
 
     //Get Image from ID
     router.get('/:id/media', async (req, res) => {
-        await publication.findById(req.params.id).select('+media').then((publication) => {
+
+        try {
+            const pub = await publication.findById(req.params.id).select('+media');
+
+            if (!pub){
+                return res.status(404).send();
+            }
+            
             res.set('Content-Type', 'image/jpg');
-            res.send(publication.media);
-        },(err)=>{
-            throw new Error(err);
-        });
-    },(error, req, res, next) => {
-        res.status(400).send({error: error.message})
+            res.send(pub.media);
+        } catch (err) {
+            res.status(400).send({error: err})
+        }
+    
     });
 
 
     //Get all publications
-    router.get('/all', (req, res) => {
-        publication.find().then((publications)=>{
+    router.get('/all', async (req, res) => {
+
+        try {
+            const publications = await publication.find()
             res.send(publications)
-        },(err)=>{
-            throw new Error(err);
-        })
-    },(error, req, res, next) => {
-        res.status(400).send({error: error.message})
+        } catch (err) {
+            res.status(400).send({error: err})
+        }
+
     });
-
-
-
-
-
-
 
     return router;
 }
