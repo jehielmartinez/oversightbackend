@@ -19,8 +19,8 @@ router.post('/signin', async (req, res) => {
 
     try {
         await newUser.save()
-        await newUser.generateAuthToken()
-        res.status(201).send({message: 'user created'})
+        const token = await newUser.generateAuthToken()
+        res.status(201).send({message: 'user created', token})
     } catch (err) {
         // throw new Error(err);
         res.status(400).send({error : err})
@@ -42,8 +42,35 @@ router.post('/login', async (req, res) => {
     }
 });
 
-router.get('/me', auth, (req, res) => {
+//GET MY USER
+router.get('/me', auth, async (req, res) => {
     res.send(req.user)
+});
+
+//LOGOUT
+router.post('/logout', auth, async (req, res) => {
+    try {
+        req.user.tokens = req.user.tokens.filter((item) => {
+            return item.token !== req.token
+        })
+        await req.user.save()
+        res.send()
+    } catch (err) {
+        res.status(500).send()
+    }
+})
+
+//LOGOUT ALL SESSIONS
+router.post('/logoutall', auth, async (req, res) => {
+
+    try {
+        req.user.tokens = []
+        await req.user.save()
+        res.send()
+    } catch (err) {
+        res.status(500).send()
+    }
+
 })
 
 module.exports = router;
