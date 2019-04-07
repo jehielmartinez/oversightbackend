@@ -11,7 +11,7 @@ const io = socketIO(server);
 
 //Require Routes
 const complaintRoutes = require('./routes/complaintRoutes')(io);
-const publicationRoutes = require('./routes/publicationRoutes')(io);
+const publicationRoutes = require('./routes/publicationRoutes');
 const authRoutes = require('./routes/authRoutes');
 
 //DB Connection

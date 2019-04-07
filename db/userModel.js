@@ -17,7 +17,7 @@ let userSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 7,
-        trim: true,
+        trim: true
     },
     email: {
         type: String,
@@ -45,7 +45,13 @@ let userSchema = new mongoose.Schema({
             require: true
         }
     }]
-});
+})
+
+userSchema.virtual('publications', {
+    ref: 'Publication',
+    localField: '_id',
+    foreignField: 'owner'
+})
 
 userSchema.methods.generateAuthToken = async function () {
     const user = this
@@ -55,6 +61,16 @@ userSchema.methods.generateAuthToken = async function () {
     await user.save()
 
     return token
+}
+
+userSchema.methods.toJSON = function () {
+    const user = this
+    const userProfile = user.toObject()
+
+    delete userProfile.password
+    delete userProfile.tokens
+
+    return userProfile
 }
 
 userSchema.statics.findByCredentials = async (email, password) => {
@@ -85,6 +101,6 @@ userSchema.pre('save', async function (next) {
     next()
 });
 
-let User = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
 
 module.exports = {User}
