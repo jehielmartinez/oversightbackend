@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import {Navbar, NavItem} from 'react-materialize';
-import {Link} from 'react-router-dom'
 import './Header.css';
 
-import Logo from '../../assets/oversight-logo-light.png'
+import Logo from '../../../../assets/oversight-logo-light.png'
 
 class Header extends Component {
 

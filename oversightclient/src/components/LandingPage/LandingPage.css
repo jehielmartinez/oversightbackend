@@ -1,4 +1,4 @@
-.logo-jumbo {
+.banner-logo {
     max-height: 170px;
 }
 .banner-text {
@@ -9,10 +9,4 @@
 .caracteristics-container {
     background-color: #F9F9FA;
     padding: 3%
-}
-.caracteristic-text {
-   text-align: justify
-}
-.caracteristic {
-    margin: 5%
 }
