@@ -1,0 +1,18 @@
+.logo-jumbo {
+    max-height: 170px;
+}
+.banner-text {
+    color: white;
+    font-weight: bold;
+    margin:0;
+}
+.caracteristics-container {
+    background-color: #F9F9FA;
+    padding: 3%
+}
+.caracteristic-text {
+   text-align: justify
+}
+.caracteristic {
+    margin: 5%
+}
