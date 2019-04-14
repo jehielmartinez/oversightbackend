@@ -1,0 +1,17 @@
+.feature-title{
+    color: grey;
+    text-align: center
+}
+.feature-text{
+    text-align: justify
+}
+.feature-callToAction{
+    background-color: #003d5b;
+    height: 50px;
+    width: 200px;
+    border-radius: 25px;
+    font-size: 20px
+}
+.feature-image{
+    margin: 3%
+}

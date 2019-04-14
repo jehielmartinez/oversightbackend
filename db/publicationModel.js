@@ -1,30 +1,39 @@
 const mongoose = require('mongoose');
 
 let publicationSchema = new mongoose.Schema({
-    user: {
-        type: String
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
     },
     content: {
-        type: String
+        type: String,
+        required: true,
+        trim: true
     },
     media: {
         type: Buffer,
         select: false
     },
     createdAt:  {
-        type: String
+        type: String,
+        required: true
     },
     comments:  {
         type: Array
     },
-    likes:  {
-        type: Array
-    },
+    likes:  [{
+        liker: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        }
+    }],
     mediaExist: {
-        type: Boolean
+        type: Boolean,
+        required: true
     }
 });
 
-let publication = mongoose.model('publication', publicationSchema);
+const Publication = mongoose.model('Publication', publicationSchema);
 
-module.exports = {publication}
+module.exports = {Publication}

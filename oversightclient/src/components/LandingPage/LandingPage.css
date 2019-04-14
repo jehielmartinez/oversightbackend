@@ -1,0 +1,15 @@
+.banner-logo {
+    max-height: 170px;
+}
+.banner-text {
+    color: white;
+    font-weight: bold;
+    margin:0;
+}
+.caracteristics-container {
+    background-color: #F9F9FA;
+    padding: 3%
+}
+.footer{
+    background-color: #003D5B
+}

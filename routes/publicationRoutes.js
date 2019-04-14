@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const moment = require('moment');
 const multer = require('multer');
+const auth = require('../middleware/auth')
 
-const {publication} = require('../db/publicationModel');
+const {Publication} = require('../db/publicationModel');
 
 const upload = multer({
     limits: {
@@ -17,67 +18,141 @@ const upload = multer({
     }
   });
 
-let routes = (io) => {
-
-    //Save New Publication
-    router.post('/publish', upload.single('media'), async (req, res) => {
+//CREATE NEW PUBLICATION
+    router.post('/publish', auth, upload.single('media'), async (req, res) => {
         let image
+        
         if (req.file) {
-            image = req.file.buffer
-        }else {
-            image = null
+            image = req.file.buffer,
+            req.body.mediaExist = true
+        } else {
+            image = null,
+            req.body.mediaExist = false
         }
-        let newPublication = new publication({
+
+        let newPublication = new Publication({
             content: req.body.content,
             createdAt: moment().valueOf(),
             media: image,
-            user: req.body.user,
+            owner: req.user._id,
             mediaExist: req.body.mediaExist
         });
-        await newPublication.save()
-            .then(()=>{
-                res.status(200).send({message: 'Published'});
-            }, (error)=>{
-                throw new Error(error);
-            });
 
-        res.send()
-    },(error, req, res, next) => {
-        res.status(400).send({error: error.message})
+        try {
+            await newPublication.save()
+            res.status(201).send({publication: newPublication, message: 'Publication Created'});
+        } catch (err) {
+            res.status(400).send({error: err})
+        }
     });
 
 
-    //Get Image from ID
+//GET MEDIA FROM ID auth??
     router.get('/:id/media', async (req, res) => {
-        await publication.findById(req.params.id).select('+media').then((publication) => {
+
+        try {
+            const pub = await Publication.findById(req.params.id).select('+media');
+
+            if (!pub){
+                return res.status(404).send();
+            }
+            
             res.set('Content-Type', 'image/jpg');
-            res.send(publication.media);
-        },(err)=>{
-            throw new Error(err);
-        });
-    },(error, req, res, next) => {
-        res.status(400).send({error: error.message})
-    });
-
-
-    //Get all publications
-    router.get('/all', (req, res) => {
-        publication.find().then((publications)=>{
-            res.send(publications)
-        },(err)=>{
-            throw new Error(err);
-        })
-    },(error, req, res, next) => {
-        res.status(400).send({error: error.message})
-    });
-
-
-
-
-
-
-
-    return router;
-}
+            res.send(pub.media);
+        } catch (err) {
+            res.status(400).send({error: err})
+        }
     
-    module.exports = routes;
+    });
+
+
+//GET ALL EVERY
+    router.get('/all', async (req, res) => {
+
+        try {
+            const publications = await Publication.find()
+            res.send(publications)
+        } catch (err) {
+            res.status(500).send({error: err})
+        }
+
+    });
+
+//DELETE PUBLICATION BY ID
+    router.delete('/:id', auth, async (req, res) => {
+        const _id = req.params.id
+
+        try {
+            const publication = await Publication.findOne({_id, owner: req.user._id})
+
+            if (!publication) {
+                return res.status(404).send()
+            }
+
+            await publication.remove()
+
+            res.send({publication, message: 'Publication Deleted'})
+        } catch (err) {
+            res.status(400).send(err)
+        }
+    })
+
+//GET ONE PUBLICATION BY ID
+    router.get('/:id', auth, async (req, res) => {
+        const _id = req.params.id
+
+        try {
+            const publication = await Publication.findById(_id)
+
+            if(!publication) {
+                return res.status(404).send()
+            }
+
+            res.send(publication)
+        } catch (err) {
+            res.status(400).send({error: err})
+        }
+    })
+
+//GET ALL MY PUBLICATIONS
+    router.get('/all/mine', auth, async (req, res) => {
+        try {
+            await req.user.populate('publications').execPopulate()
+            res.send(req.user.publications)
+        } catch (err) {
+            res.status(500).send({error: err})  
+        }
+    })
+
+//LIKE A PUBLICATION
+    router.patch('/like', auth, async (req, res) => {
+        try {
+            const publication = await Publication.findById(req.body._id)
+            publication.likes = publication.likes.concat({liker: req.user._id})
+
+            await publication.save()
+
+            res.send(publication)
+        } catch (err) {
+            res.status(400).send({error: err})
+        }
+    })
+
+//UNLIKE A PUBLICATION
+    router.patch('/unlike', auth, async (req, res) => {
+        try {
+            const publication = await Publication.findById(req.body._id)
+            
+            publication.likes = publication.likes.filter((item) => {
+                return item.liker === req.user._id
+            })
+
+            await publication.save()
+
+            res.send(publication)
+        } catch (err) {
+            res.status(400).send({error: err})
+        }
+    })
+    
+module.exports = router;
