@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import '../LandingPage/LandingPage.css'
 
 import {Parallax} from 'react-parallax'
-import { Row, Col } from 'react-materialize'
+import { Row } from 'react-materialize'
 import Footer from 'react-materialize/lib/Footer'
 
 
@@ -14,7 +14,7 @@ import logoGlow from '../../assets/oversight-logo-light-glow.png'
 
 //Icons and Colors
 import {mdiPoll, mdiCommentTextMultiple, mdiCashMultiple, mdiCalendar } from '@mdi/js'
-import {appBlueColor, appYellowColor, appRedColor, appGreyColor, appGreenColor} from '../../assets/colors'
+import {appBlueColor, appRedColor, appGreyColor, appGreenColor} from '../../assets/colors'
 
 //Subcomponents
 import Feature from './subcomponents/Feature/Feature'
@@ -128,15 +128,14 @@ class LandingPage extends Component {
                 </div>
 
                 <Footer
-                    copyrights='&copy 2015 Copyright Text'
-                    moreLinks={<a />}
+                    copyrights={<div> Copyright &copy; 2019 Ovrsight. Todos los Derechos Reservados</div>}
                     links={<ul />}
-                    className="example">
+                    className="footer">
                     <h5 className="white-text">
-                        Footer Content
+                        Ovrsight Social
                         </h5>
                         <p className="grey-text text-lighten-4">
-                            You can use rows and columns here to organize your footer content.
+                        Una red vecinal privada orientada a la transparencia y la comunicación  
                         </p>
                 </Footer>
 
