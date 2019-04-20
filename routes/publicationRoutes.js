@@ -35,7 +35,8 @@ const upload = multer({
             createdAt: moment().valueOf(),
             media: image,
             owner: req.user._id,
-            mediaExist: req.body.mediaExist
+            mediaExist: req.body.mediaExist,
+            community: req.user.community
         });
 
         try {
@@ -63,19 +64,6 @@ const upload = multer({
             res.status(400).send({error: err})
         }
     
-    });
-
-
-//GET ALL EVERY
-    router.get('/all', async (req, res) => {
-
-        try {
-            const publications = await Publication.find()
-            res.send(publications)
-        } catch (err) {
-            res.status(500).send({error: err})
-        }
-
     });
 
 //DELETE PUBLICATION BY ID
