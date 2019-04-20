@@ -66,19 +66,6 @@ const upload = multer({
     
     });
 
-
-//GET ALL EVERY
-    router.get('/all', async (req, res) => {
-
-        try {
-            const publications = await Publication.find().populate('owner').exec()
-            res.send(publications)
-        } catch (err) {
-            res.status(500).send({error: err})
-        }
-
-    });
-
 //DELETE PUBLICATION BY ID
     router.delete('/:id', auth, async (req, res) => {
         const _id = req.params.id

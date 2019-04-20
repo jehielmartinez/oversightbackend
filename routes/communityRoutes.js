@@ -28,7 +28,7 @@ router.post('/new', auth, async (req, res) => {
     }
 })
 
-//ADD NEW USER TO COMMUNITY
+//ADD NEW USER TO COMMUNITY     
 router.post('/adduser', auth, async (req, res) => {
     try {
         const community = await Community.checkPasscode(req.body.passcode)
@@ -47,7 +47,7 @@ router.get('/publications', auth, async (req, res) => {
     try {   
         const community = await Community.findById(req.user.community)
         
-        await community.populate('publications').execPopulate()
+        await community.populate({path: 'publications', populate: {path: 'owner'}}).execPopulate()
 
         res.send(community.publications)
     } catch (err) {
