@@ -31,6 +31,15 @@ let userSchema = new mongoose.Schema({
             }
         }
     },
+    admin:{
+        type: Boolean,
+        default: false,
+        required: true
+    },
+    community:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Community'
+    },
     avatar:{
         type: Buffer,
         select: false
@@ -88,7 +97,6 @@ userSchema.statics.findByCredentials = async (email, password) => {
 
     return user
 }
-
 
 //Hash Password Middleware
 userSchema.pre('save', async function (next) {

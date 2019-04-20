@@ -6,6 +6,11 @@ let publicationSchema = new mongoose.Schema({
         required: true,
         ref: 'User'
     },
+    community: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Community'
+    },
     content: {
         type: String,
         required: true,
@@ -32,8 +37,8 @@ let publicationSchema = new mongoose.Schema({
         type: Boolean,
         required: true
     }
-});
+})
 
 const Publication = mongoose.model('Publication', publicationSchema);
 
-module.exports = {Publication}
+module.exports = {Publication} 

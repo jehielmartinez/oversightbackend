@@ -35,7 +35,8 @@ const upload = multer({
             createdAt: moment().valueOf(),
             media: image,
             owner: req.user._id,
-            mediaExist: req.body.mediaExist
+            mediaExist: req.body.mediaExist,
+            community: req.user.community
         });
 
         try {
@@ -70,7 +71,7 @@ const upload = multer({
     router.get('/all', async (req, res) => {
 
         try {
-            const publications = await Publication.find()
+            const publications = await Publication.find().populate('owner').exec()
             res.send(publications)
         } catch (err) {
             res.status(500).send({error: err})
