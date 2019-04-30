@@ -29,7 +29,7 @@ class Form extends Component {
             comment: this.comment.value
         }
 
-        fetch('http://oversightapp.herokuapp.com/submitclient', {
+        fetch('http://oversightapp.herokuapp.com/client/submit', {
             method: 'POST',
             body: JSON.stringify(contact)
         }).then((res)=>{

@@ -14,6 +14,7 @@ const complaintRoutes = require('./routes/complaintRoutes')(io);
 const publicationRoutes = require('./routes/publicationRoutes');
 const authRoutes = require('./routes/authRoutes');
 const communityRoutes = require('./routes/communityRoutes');
+const landingRoutes = require('./routes/landingRoutes');
 
 //DB Connection
 const connectionString = process.env.DATABASE_URI || 'mongodb://localhost:27017/oversight';
@@ -38,6 +39,7 @@ app.use('/server/complaints', complaintRoutes);
 app.use('/server/publications', publicationRoutes);
 app.use('/server/auth', authRoutes);
 app.use('/server/community', communityRoutes);
+app.use('/server/client', landingRoutes);
 
 io.on('connection', (socket) => {
     console.log('Client Connected');
