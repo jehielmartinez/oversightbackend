@@ -11,7 +11,6 @@ import {mdiAccount, mdiHome, mdiMailRu, mdiComment} from '@mdi/js';
 import {appGreyColor } from '../../../../assets/colors';
 import peopleDraw from '../../../../assets/neighborhood.jpg'
 
-
 class Form extends Component {
 
     name = React.createRef();
@@ -29,7 +28,7 @@ class Form extends Component {
             comment: this.comment.value
         }
 
-        fetch('http://oversightapp.herokuapp.com/client/submit', {
+        fetch(`http://${window.location.hostname}/server/client/submit`, {
             method: 'POST',
             body: JSON.stringify(contact)
         }).then((res)=>{
