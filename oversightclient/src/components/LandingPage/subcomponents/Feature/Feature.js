@@ -8,9 +8,8 @@ const Feature = (props) => {
             <Row>
                 <Col s={12} m={6}>
                     <div className='feature-container'>
-                        <h3 className='feature-title'>{props.feature.title}</h3>
-                        <p className='feature-text flow-text'>{props.feature.text}</p>
-                        <button className='feature-callToAction waves-effect btn right'>Saber mas</button>
+                        <h5 className='feature-title'>{props.feature.title}</h5>
+                        <p className='feature-text'>{props.feature.text}</p>
                     </div>
                 </Col>
                 <Col s={12} m={6}>

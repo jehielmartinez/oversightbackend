@@ -1,9 +1,13 @@
+.feature-container{
+    padding-top: 20px
+}
 .feature-title{
     color: grey;
-    text-align: center
+    text-align: center;
 }
 .feature-text{
-    text-align: justify
+    text-align: justify;
+    font-size: auto;
 }
 .feature-callToAction{
     background-color: #003d5b;

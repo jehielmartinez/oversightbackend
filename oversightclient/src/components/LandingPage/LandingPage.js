@@ -7,30 +7,32 @@ import Footer from 'react-materialize/lib/Footer'
 
 
 //Images
-import neighborhood from '../../assets/houses2.jpg'
+import neighborhood from '../../assets/houses.jpg'
 import peopleSocial from '../../assets/people-social.png'
 import peopleAdmin from '../../assets/people-admin.png'
 import logoGlow from '../../assets/oversight-logo-light-glow.png'
 
 //Icons and Colors
-import {mdiPoll, mdiCommentTextMultiple, mdiCashMultiple, mdiCalendar } from '@mdi/js'
+import {mdiPoll, mdiCommentTextMultiple, mdiCashMultiple, mdiCalendar, mdiFileSearch, mdiShieldHome, mdiHomeGroup, mdiAccountGroup, mdiFacebookBox, mdiGmail } from '@mdi/js'
 import {appBlueColor, appRedColor, appGreyColor, appGreenColor} from '../../assets/colors'
 
 //Subcomponents
 import Feature from './subcomponents/Feature/Feature'
 import Caracteristic from './subcomponents/Caracteristic/Caracteristic'
-import Header from './subcomponents/Header/Header'
+import Form from './subcomponents/Form/Form';
+import Button from 'react-materialize/lib/Button';
+import Icon from '@mdi/react';
 
 class LandingPage extends Component {
     render() {
         const feature1 = {
-            title: 'Administración de Vecindarios.',
-            text: 'Comunidades siempre informadas y conectadas. Ya no hay necesidad de reuniones donde la mayoria no pueden asistir. Administra un conjunto vecinal inclusivo, transparente y moderno.',
+            title: 'Comunidades Inclusivas y Modernas',
+            text: 'Vecinos siempre informados y conectados. En este tiempo ya no hay necesidad de reuniones donde no todos pueden asistir. Con Oversight puedes generar encuestas y publicaciones, manejar las cuotas de pago y organizar eventos desde una sola aplicacion. La asistencia siempre será del 100%',
             image: peopleAdmin
         }
         const feature2 = {
-            title: 'Una red social privada orientada a la transparencia.',
-            text: 'Comunidades siempre informadas y conectadas. Desde buscar un electricista o reservar areas de recreación hasta ver el contrato del ultimo proyecto de tu barrio. Todo desde el mismo lugar.',
+            title: 'Tu comunidad al alcance de tu mano.',
+            text: 'Con Oversight puedes visualizar documentos legales, participar activamente en votaciones, discutir temas de interés y comunicarte con la seguridad privada desde tu celular. Realiza publicaciones de tus negocios locales y llega a oidos de todos tus vecinos al mismo tiempo.',
             image: peopleSocial
         }
         const caracteristic1 = {
@@ -41,7 +43,7 @@ class LandingPage extends Component {
         }
         const caracteristic2 = {
             title: 'Encuestas',
-            text: 'Puedes realizar encuestas electronicas para conocer las tendencias del pensamiento de tu comunidad. Obten los resultados automaticamente y toma decisiones en poco tiempo',
+            text: 'Puedes realizar encuestas electronicas para conocer las tendencias del pensamiento de tu comunidad. Obten los resultados automaticamente y toma decisiones en poco tiempo.',
             icon: mdiPoll,
             color: appRedColor
         }
@@ -57,10 +59,33 @@ class LandingPage extends Component {
             icon: mdiCashMultiple,
             color: appGreenColor
         }
+        const caracteristic5 = {
+            title: 'Transparencia',
+            text: 'Ten acceso a documentos de caracter publico en tu comunidad. Revisa estados de cuenta, contratos, registros y demas',
+            icon: mdiFileSearch,
+            color: appGreyColor
+        }
+        const caracteristic6 = {
+            title: 'Seguridad',
+            text: 'Comunicate directamente con los guardias de seguridad en caso de problemas, anuncia tus visitantes y ten acceso a todo el registro de entradas y salidas de la colonia. ',
+            icon: mdiShieldHome,
+            color: appRedColor
+        }
+        const caracteristic7 = {
+            title: 'Publicaciones',
+            text: 'Necesitas una herramienta o una escalera? Quieres comenzar un pequeño negocio? Puedes realizar publicaciones para llegar a todos los miembros de tu comunidad ',
+            icon: mdiHomeGroup,
+            color: appBlueColor
+        }
+        const caracteristic8 = {
+            title: 'Participacion',
+            text: 'Participa activamente en las decisiones de tu comunidad, da tu voto en encuestas y publicaciones, opina sobre los temas del momento y se parte de cada actividad',
+            icon: mdiAccountGroup,
+            color: appGreenColor
+        }
 
         return (
             <div>
-                <Header/>
                 <div>
                     <Parallax
                         blur={{ min: -15, max: 15 }}
@@ -68,10 +93,11 @@ class LandingPage extends Component {
                         bgImageAlt='neighborhood'
                         strength={700}
                     >
-                        <div className='valign-wrapper' style={{ height: '500px' }} >
+                        <div className='valign-wrapper' style={{ height: '400px' }} >
                             <div className='container center'>
                                 <img className='responsive-img banner-logo' src={logoGlow} alt='Logo'/>
                                 <p className='flow-text banner-text'>Una red vecinal privada orientada a la transparencia y la comunicación</p>
+                                <Button waves='light' style={{borderRadius: 15, backgroundColor: appRedColor}}>Quiero Saber Más</Button>
                             </div>  
                         </div>
                     </Parallax>
@@ -83,7 +109,6 @@ class LandingPage extends Component {
                 
                 <div className='caracteristics-container'> 
                     <Row>
-
                         <Caracteristic
                             caracteristic = {caracteristic1}
                         />
@@ -98,8 +123,7 @@ class LandingPage extends Component {
 
                         <Caracteristic
                             caracteristic = {caracteristic4}
-                        />
-                        
+                        />   
                     </Row>
                 </div>
 
@@ -110,30 +134,31 @@ class LandingPage extends Component {
                 <div className='caracteristics-container'> 
                     <Row>
                         <Caracteristic
-                            caracteristic = {caracteristic1}
+                            caracteristic = {caracteristic5}
                         />
 
                         <Caracteristic
-                            caracteristic = {caracteristic2}
+                            caracteristic = {caracteristic6}
                         />
 
                         <Caracteristic
-                            caracteristic = {caracteristic3}
+                            caracteristic = {caracteristic7}
                         />
 
                         <Caracteristic
-                            caracteristic = {caracteristic4}
+                            caracteristic = {caracteristic8 }
                         />
                     </Row>
                 </div>
-
+                <Form/>
                 <Footer
-                    copyrights={<div> Copyright &copy; 2019 Ovrsight. Todos los Derechos Reservados</div>}
-                    links={<ul />}
+                    copyrights={<div> Copyright &copy; 2019 Oversight. Todos los Derechos Reservados</div>}
+                    links={<ul>
+                        <li className='valign-wrapper'><Icon path={mdiFacebookBox} size={2} color={'white'}/><a className='social-link' target='_blank' rel='noopener noreferrer' href='https://www.facebook.com/oversightapp'>@oversightapp</a></li>
+                        <li className='valign-wrapper'><Icon path={mdiGmail} size={2} color={'white'}/><a className='social-link' rel='noopener noreferrer' href='mailto:contacto@ovrsight.com'>contacto@ovrsight.com</a></li>
+                   </ul>}
                     className="footer">
-                    <h5 className="white-text">
-                        Ovrsight Social
-                        </h5>
+                    <h5 className="white-text">Oversight Social</h5>
                         <p className="grey-text text-lighten-4">
                         Una red vecinal privada orientada a la transparencia y la comunicación  
                         </p>

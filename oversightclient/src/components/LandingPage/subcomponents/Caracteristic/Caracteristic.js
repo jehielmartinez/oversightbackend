@@ -10,8 +10,8 @@ const Caracteristic = (props) => {
             <Icon path={props.caracteristic.icon}
                 size={3}
                 color={props.caracteristic.color}/>
-            <h4>{props.caracteristic.title}</h4>
-            <p className='flow-text caracteristic-text'>{props.caracteristic.text}</p>
+            <h5>{props.caracteristic.title}</h5>
+            <p className='caracteristic-text'>{props.caracteristic.text}</p>
         </div>
     </Col>
     );
