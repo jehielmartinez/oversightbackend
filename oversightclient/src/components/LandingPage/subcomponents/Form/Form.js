@@ -28,7 +28,7 @@ class Form extends Component {
             comment: this.comment.value
         }
 
-        fetch(`http://${window.location.hostname}/server/client/submit`, {
+        fetch(`https://${window.location.hostname}/server/client/submit`, {
             method: 'POST',
             body: JSON.stringify(contact)
         }).then((res)=>{
