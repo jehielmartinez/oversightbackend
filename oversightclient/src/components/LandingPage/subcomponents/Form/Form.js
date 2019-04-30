@@ -30,7 +30,10 @@ class Form extends Component {
 
         fetch(`https://${window.location.hostname}/server/client/submit`, {
             method: 'POST',
-            body: {contact}
+            body: contact,
+            headers:{
+                'Content-Type': 'application/json'
+              }
         }).then((res)=>{
             console.log(res)
         }, (err) => {
