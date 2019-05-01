@@ -52,7 +52,12 @@ class Form extends Component {
                 timer: 2000
             })
         }, (err) => {
-            console.log(err)
+            Swal.fire({
+                type: 'error',
+                title: 'Error del Servidor',
+                showConfirmButton: false,
+                timer: 2000
+            })
         })
     }
 
