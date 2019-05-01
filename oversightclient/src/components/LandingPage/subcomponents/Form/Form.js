@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import TextInput from 'react-materialize/lib/TextInput';
-import { Textarea, MediaBox } from 'react-materialize';
+import { Textarea, MediaBox, TextInput } from 'react-materialize';
+import axios from 'axios';
 
 import Col from 'react-materialize/lib/Col';
 import '../Form/Form.css'
@@ -13,28 +13,28 @@ import peopleDraw from '../../../../assets/neighborhood.jpg'
 
 class Form extends Component {
 
-    name = React.createRef();
-    address = React.createRef();
-    email = React.createRef();
-    comment = React.createRef();
+    state = {
+            name: '',
+            address: '',
+            email: '',
+            comment: '',
+    }
 
     submitContact = (e) => {
         e.preventDefault()
 
         const contact = {
-            name: this.name.current.value,
-            address: this.address.current.value,
-            email: this.email.current.value,
-            comment: this.comment.value
+            name: this.state.name,
+            address: this.state.address,
+            email: this.state.email,
+            comment: this.state.comment,
         }
 
-        fetch(`https://${window.location.hostname}/server/client/submit`, {
-            method: 'POST',
-            body: contact,
-            headers:{
-                'Content-Type': 'application/json'
-              }
-        }).then((res)=>{
+        console.log(contact)
+
+        
+        axios.post(`http://${window.location.hostname}/server/client/submit`, contact)
+        .then((res)=>{
             console.log(res)
         }, (err) => {
             console.log(err)
@@ -53,10 +53,10 @@ class Form extends Component {
                             <div className='center'>
                             <h5>Queremos conocerte</h5>
                             <div className='form-container'>
-                                <TextInput ref={this.name} icon={<Icon path={mdiAccount}/>} label='Nombre'/>
-                                <TextInput ref={this.address} icon={<Icon path={mdiHome}/>} label='Dirección'/>
-                                <TextInput ref={this.email} email validate icon={<Icon path={mdiMailRu}/>} label='Correo Electrónico'/>
-                                <Textarea ref={this.comment} icon={<Icon path={mdiComment}/>} label='Comentario'/>
+                                <TextInput onChange={e => this.setState({name : e.target.value})} icon={<Icon path={mdiAccount}/>} label='Nombre'/>
+                                <TextInput onChange={e => this.setState({address : e.target.value})} icon={<Icon path={mdiHome}/>} label='Direccion'/>
+                                <TextInput onChange={e => this.setState({email : e.target.value})} email validate icon={<Icon path={mdiMailRu}/>} label='Correo Electrónico'/>
+                                <Textarea onChange={e => this.setState({comment : e.target.value})} icon={<Icon path={mdiComment}/>} label='Comentario'/>
                             </div>
                             <Button 
                                 className='right'
