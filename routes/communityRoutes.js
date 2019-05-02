@@ -24,7 +24,7 @@ router.post('/new', auth, async (req, res) => {
 
         res.status(201).send(community)
     } catch (err) {
-        res.status(400).send({error: err})
+        res.status(400).send(err)
     }
 })
 
@@ -38,7 +38,7 @@ router.post('/adduser', auth, async (req, res) => {
 
         res.send(community)
     } catch (err) {
-        res.status(404).send({error: err})
+        res.status(404).send(err.toString())
     }
 })
 
