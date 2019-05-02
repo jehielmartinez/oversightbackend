@@ -9,6 +9,7 @@
     "materialize-css": "^1.0.0",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
+    "react-ga": "^2.5.7",
     "react-materialize": "^3.0.4",
     "react-parallax": "^2.2.0",
     "react-router-dom": "^5.0.0",
