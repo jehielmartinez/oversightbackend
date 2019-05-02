@@ -28,6 +28,24 @@ router.post('/new', auth, async (req, res) => {
     }
 })
 
+//GENERATE NEW PASSCODE
+router.patch('/newpasscode', auth, async (req, res) => {
+
+    if (!req.user.admin){
+        res.status(400).send({error: 'No es Administrador'})
+    }
+    
+    try {
+        const community = await Community.findById(req.user.community)
+        const code = await community.generatePasscode(req.body.expiration)
+        
+        res.status(201).send(code)
+
+    } catch (err) {
+        res.status(400).send()
+    }
+})
+
 //ADD NEW USER TO COMMUNITY     
 router.post('/adduser', auth, async (req, res) => {
     try {
