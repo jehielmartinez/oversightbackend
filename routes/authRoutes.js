@@ -23,7 +23,7 @@ router.post('/signin', async (req, res) => {
             token
         })
     } catch (err) {
-        // throw new Error(err);
+
         res.status(400).send({error : err})
     }
 

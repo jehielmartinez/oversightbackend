@@ -44,19 +44,19 @@ communitySchema.virtual('users', {
 })
 
 communitySchema.statics.checkPasscode = async (passcode) => {
-    const community = await Community.findOne({'passcode.code': passcode})
 
-    if(!community){
-        throw new Error('Community Not found!')
-    }
+        const community = await Community.findOne({'passcode.code': passcode})
+        const today = moment().valueOf()
 
-    const today = moment().valueOf()
-
-    if(community.passcode.expiration < today){
-        throw new Error('Passcode expired!')
-    }
-
-    return community
+        if(!community){
+            throw new Error('Community Not found!')
+        }
+        
+        if(community.passcode.expiration < today){
+            throw new Error('Passcode expired!')
+        } 
+        
+        return community
 }
 
 communitySchema.methods.generatePasscode = async function (expiration) {
