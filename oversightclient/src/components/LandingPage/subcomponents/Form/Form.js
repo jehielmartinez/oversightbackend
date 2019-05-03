@@ -8,15 +8,14 @@ import '../Form/Form.css'
 import Row from 'react-materialize/lib/Row';
 import Button from 'react-materialize/lib/Button';
 import Icon from '@mdi/react';
-import {mdiAccount, mdiHome, mdiMailRu, mdiComment} from '@mdi/js';
-import {appGreyColor, appBlueColor, appRedColor, appGreenColor } from '../../../../assets/colors';
-import peopleDraw from '../../../../assets/neighborhood.jpg'
+import {mdiAccount, mdiMailRu, mdiComment} from '@mdi/js';
+import {appGreyColor, appRedColor, appGreenColor } from '../../../../assets/colors';
+import peopleLike from '../../../../assets/people-like.png'
 
 class Form extends Component {
 
     state = {
             name: '',
-            address: '',
             email: '',
             comment: '',
     }
@@ -24,7 +23,7 @@ class Form extends Component {
     submitContact = (e) => {
         e.preventDefault()
 
-        const {name, address, email, comment} = this.state
+        const {name, email, comment} = this.state
 
         if (email  === ''){
             Swal.fire({
@@ -37,7 +36,6 @@ class Form extends Component {
            
             const contact = {
                 name,
-                address,
                 email,
                 comment
             }
@@ -68,14 +66,13 @@ class Form extends Component {
             <form onSubmit={this.submitContact} className='container'>
                     <Row> 
                         <Col s={12} m={6}>
-                            <MediaBox className='responsive-img' src={peopleDraw}/>
+                            <MediaBox className='responsive-img' src={peopleLike}/>
                         </Col>
                         <Col s={12} m={6}>
                             <div className='center'>
-                            <h5>Queremos conocerte</h5>
+                            <h5>¿Quieres Oversight en tu comunidad?</h5>
                             <div className='form-container'>
                                 <TextInput onChange={e => this.setState({name : e.target.value})} icon={<Icon color={appGreyColor} path={mdiAccount}/>} label='Nombre'/>
-                                <TextInput onChange={e => this.setState({address : e.target.value})} icon={<Icon color={appBlueColor} path={mdiHome}/>} label='Dirección'/>
                                 <TextInput onChange={e => this.setState({email : e.target.value})} email validate icon={<Icon color={appRedColor} path={mdiMailRu}/>} label='Correo Electrónico'/>
                                 <Textarea onChange={e => this.setState({comment : e.target.value})} icon={<Icon color={appGreenColor} path={mdiComment}/>} label='Comentario'/>
                             </div>
@@ -83,7 +80,8 @@ class Form extends Component {
                                 className='right'
                                 style={{borderRadius: 15, backgroundColor: appRedColor}} 
                                 type='submit'
-                                waves='light'>Contactarme</Button>
+                                waves='light'>Contactarme
+                            </Button>
                             </div>
                         </Col>
                     </Row>
