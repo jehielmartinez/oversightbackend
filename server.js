@@ -45,11 +45,14 @@ io.on('connection', (socket) => {
     console.log('Client Connected');
 });
 
+app.get('/*', (req,res) => {
+  res.sendFile(path.join(__dirname, 'oversightclient/build/index.html'));
+});
+
 //index.html client render
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('oversightclient/build'));
-  
-    app.get('/*', (req, res) => {
+    app.get('/', (req, res) => {
       res.sendFile(path.resolve(__dirname, 'oversightclient', 'build', 'index.html'));
     });
   }
