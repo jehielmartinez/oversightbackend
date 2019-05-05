@@ -1,11 +1,18 @@
 .banner-logo {
-    max-height: 120px;
+    max-height: 100px;
+}
+.banner-screenshot{
+    max-height: 400px;
+    margin-top: 20px
+}
+.banner-info{
+    height: 400px;
 }
 .banner-text {
     color: white;
     font-weight: bold;
     margin:0;
-    margin-bottom: 20px;
+    margin-bottom: 20px
 }
 .caracteristics-container {
     background-color: #F9F9FA;

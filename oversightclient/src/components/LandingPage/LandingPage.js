@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import '../LandingPage/LandingPage.css'
 
 import {Parallax} from 'react-parallax'
-import { Row } from 'react-materialize'
+import { Row, Col } from 'react-materialize'
 import Footer from 'react-materialize/lib/Footer'
 import {Zoom, Flip} from 'react-reveal'
  
@@ -11,6 +11,7 @@ import neighborhood from '../../assets/houses.jpg'
 import peopleSocial from '../../assets/people-social.png'
 import peopleAdmin from '../../assets/people-admin.png'
 import logoGlow from '../../assets/oversight-logo-light-glow.png'
+import screenshot from '../../assets/mobile-screenshot.png'
 
 //Icons and Colors
 import {mdiPoll, mdiCommentTextMultiple, mdiCashMultiple, mdiCalendar, mdiFileSearch, mdiShieldHome, mdiHomeGroup, mdiAccountGroup, mdiFacebookBox, mdiGmail } from '@mdi/js'
@@ -29,7 +30,7 @@ class LandingPage extends Component {
     render() {
         const feature1 = {
             title: 'Comunidades inclusivas y modernas',
-            text: 'Vecinos siempre informados y conectados. En este tiempo ya no hay necesidad de reuniones donde no todos pueden asistir. Con Oversight puedes generar encuestas y publicaciones, manejar las cuotas de pago y organizar eventos desde una sola aplicacion. La asistencia siempre será del 100%',
+            text: 'En la actualidad es muy difícil realizar reuniones donde todos estén presentes. Con Oversight puedes comunicarte con la totalidad de las personas que pertenecen a tu comunidad, generar encuestas, publicaciones, manejar las cuotas de pago y organizar eventos desde una sola aplicación.',
             image: peopleAdmin
         }
         const feature2 = {
@@ -39,13 +40,13 @@ class LandingPage extends Component {
         }
         const caracteristic1 = {
             title: 'Red Privada',
-            text: 'Cualquier tema es discutible en un ambiente donde todos pueden participar. Maneja las quejas y sugerencias de tus vecinos para crear proyectos a beneficio de todos',
+            text: 'Cualquier tema es discutible en un ambiente donde todos pueden participar. Maneja las sugerencias y observaciones de tus vecinos para crear proyectos a beneficio de todos',
             icon: mdiCommentTextMultiple,
             color: appGreyColor
         }
         const caracteristic2 = {
             title: 'Encuestas',
-            text: 'Puedes realizar encuestas electronicas para conocer las tendencias del pensamiento de tu comunidad. Obten los resultados automaticamente y toma decisiones en poco tiempo.',
+            text: 'Puedes realizar encuestas electrónicas para conocer las tendencias del pensamiento de las personas qu integran tu comunidad. Obten los resultados automáticamente y toma decisiones de manera rápida y eficaz.',
             icon: mdiPoll,
             color: appRedColor
         }
@@ -63,13 +64,13 @@ class LandingPage extends Component {
         }
         const caracteristic5 = {
             title: 'Transparencia',
-            text: 'Ten acceso a documentos de caracter publico en tu comunidad. Revisa estados de cuenta, contratos, registros, recibos de pago y mas.',
+            text: 'Ten acceso a documentos de carácter público en tu comunidad. Revisa estados de cuenta, contratos, registros, recibos de pago y más.',
             icon: mdiFileSearch,
             color: appBlueColor
         }
         const caracteristic6 = {
             title: 'Seguridad',
-            text: 'Comunicate directamente con los guardias de seguridad en caso de problemas, anuncia tus visitantes y ten acceso a todo el registro de entradas y salidas de la colonia. ',
+            text: 'Comunícate directamente con los guardias de seguridad en caso de problemas, anuncia tus visitantes y ten acceso a todo el registro de entradas y salidas de tu comunidad.',
             icon: mdiShieldHome,
             color: appGreyColor
         }
@@ -95,21 +96,25 @@ class LandingPage extends Component {
                         bgImageAlt='neighborhood'
                         strength={700}
                     >
-                        <div className='valign-wrapper' style={{ height: '400px' }} >
-                            <div className='container center'>
-                                <Flip left><img className='responsive-img banner-logo' src={logoGlow} alt='Logo'/></Flip>
-                                <p className='flow-text banner-text'>Una red vecinal privada orientada a la transparencia y la comunicación</p>
-                                <Row>
-                                    <Button 
-                                        waves='light'
-                                        style={{borderRadius: 15, backgroundColor: appGreenColor}}
-                                        onClick={() => {window.scrollTo(0, this.features.current.offsetTop)}}
-                                        >Quiero Saber Más
-                                    </Button>
-                                </Row>
-                                
-                            </div>  
-                        </div>
+                            <Row className='container' style={{ height: '400px' }}>
+                                <Col className='valign-wrapper center banner-info' m={6}>
+                                    <div>
+                                        <Flip left><img className='responsive-img banner-logo' src={logoGlow} alt='Logo'/></Flip>
+                                        <p className='banner-text'>La primera aplicación que mejora la comunicación de los conjuntos vecinales a travez de una red privada orientada a la transparencia y participación.</p>
+                                        <Row>
+                                            <Button 
+                                                waves='light'
+                                                style={{borderRadius: 15, backgroundColor: appGreenColor}}
+                                                onClick={() => {window.scrollTo(0, this.features.current.offsetTop)}}
+                                                >Quiero Saber Más
+                                            </Button>
+                                        </Row>
+                                    </div>
+                                </Col>  
+                                <Col  m={6}>
+                                    <img className='responsive-img banner-screenshot' src={screenshot} alt='screenshot'/>
+                                </Col>
+                            </Row>
                     </Parallax>
                 </div>
 
