@@ -7,10 +7,10 @@ class Router extends Component {
         return (
             <BrowserRouter>
                 <Switch>
-                    <Redirect exact from='/' to='/landing'/>
+                    {/* <Redirect exact from='/' to='/landing'/> */}
                     <Route
                         exact
-                        path='/landing'
+                        path='/'
                         component={LandingPage}
                    />
                 </Switch>
