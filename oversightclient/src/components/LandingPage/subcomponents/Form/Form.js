@@ -10,7 +10,7 @@ import Button from 'react-materialize/lib/Button';
 import Icon from '@mdi/react';
 import {mdiAccount, mdiMailRu, mdiComment} from '@mdi/js';
 import {appGreyColor, appRedColor, appGreenColor } from '../../../../assets/colors';
-import peopleLike from '../../../../assets/people-like.png'
+import peopleLike from '../../../../assets/community-park.jpg'
 
 class Form extends Component {
 
@@ -66,13 +66,13 @@ class Form extends Component {
             <form onSubmit={this.submitContact} className='container'>
                     <Row> 
                         <Col s={12} m={6}>
-                            <MediaBox className='responsive-img' src={peopleLike}/>
+                            <MediaBox className='responsive-img img' src={peopleLike}/>
                         </Col>
                         <Col s={12} m={6}>
                             <div className='center'>
                             <h5>¿Quieres Oversight en tu comunidad?</h5>
                             <div className='form-container'>
-                                <TextInput onChange={e => this.setState({name : e.target.value})} icon={<Icon color={appGreyColor} path={mdiAccount}/>} label='Nombre'/>
+                                <TextInput onChange={e => this.setState({name : e.target.value})} icon={<Icon color={appGreyColor} path={mdiAccount}/>} label='Nombre y Apellido'/>
                                 <TextInput onChange={e => this.setState({email : e.target.value})} email validate icon={<Icon color={appRedColor} path={mdiMailRu}/>} label='Correo Electrónico'/>
                                 <Textarea onChange={e => this.setState({comment : e.target.value})} icon={<Icon color={appGreenColor} path={mdiComment}/>} label='Comentario'/>
                             </div>

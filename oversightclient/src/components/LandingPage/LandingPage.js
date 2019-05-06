@@ -8,9 +8,9 @@ import {Zoom, Flip} from 'react-reveal'
  
 //Images
 import neighborhood from '../../assets/houses.jpg'
-import peopleSocial from '../../assets/people-social.png'
-import peopleAdmin from '../../assets/people-admin.png'
-import logoGlow from '../../assets/oversight-logo-light-glow.png'
+import peopleSocial from '../../assets/people-casual.jpg'
+import peopleAdmin from '../../assets/admin-guy.jpg'
+import logoGlow from '../../assets/oversight-logo-white.png'
 import screenshot from '../../assets/mobile-screenshot.png'
 
 //Icons and Colors
@@ -29,13 +29,13 @@ class LandingPage extends Component {
     
     render() {
         const feature1 = {
-            title: 'Comunidades inclusivas y modernas',
-            text: 'En la actualidad es muy difícil realizar reuniones donde todos estén presentes. Con Oversight puedes comunicarte con la totalidad de las personas que pertenecen a tu comunidad, generar encuestas, publicaciones, manejar las cuotas de pago y organizar eventos desde una sola aplicación.',
+            title: 'Administra tu comunidad',
+            text: ['Comunícate con la totalidad de las personas que pertenecen a tu comunidad.', 'Agiliza la toma de decisiones por medio de encuestas.', 'Maneja las cuotas y pagos desde cualquier dispositivo.'],
             image: peopleAdmin
         }
         const feature2 = {
-            title: 'Tu comunidad al alcance de tu mano',
-            text: 'Con Oversight puedes visualizar documentos legales, participar activamente en votaciones, discutir temas de interés y comunicarte con la seguridad privada desde tu celular. Realiza publicaciones de tus negocios locales y llega a oidos de todos tus vecinos al mismo tiempo.',
+            title: 'Toda la comunidad a tu alcance',
+            text: ['Visualiza documentos y participa activamente en la toma de decisiones.', 'Maneja el acceso vehicular con la seguridad privada desde tu celular.', 'Realiza publicaciones de tus emprendimientos y llega a oidos de todos tus vecinos al mismo tiempo.'],
             image: peopleSocial
         }
         const caracteristic1 = {
@@ -46,19 +46,19 @@ class LandingPage extends Component {
         }
         const caracteristic2 = {
             title: 'Encuestas',
-            text: 'Puedes realizar encuestas electrónicas para conocer las tendencias del pensamiento de las personas qu integran tu comunidad. Obten los resultados automáticamente y toma decisiones de manera rápida y eficaz.',
+            text: 'Puedes realizar encuestas electrónicas para conocer las tendencias del pensamiento de las personas que integran tu comunidad. Obten los resultados automáticamente y toma decisiones de manera rápida y eficaz.',
             icon: mdiPoll,
             color: appRedColor
         }
         const caracteristic3 = {
             title: 'Reservaciones',
-            text: 'Olvidate de administrar los espacios de recreacion, ahora cualquier vecino puede reservar sin necesidad de intermediarios.',
+            text: 'Olvidate de administrar los espacios de recreación, ahora cualquier vecino puede reservar sin necesidad de intermediarios.',
             icon: mdiCalendar,
             color: appBlueColor
         }
         const caracteristic4 = {
             title: 'Cuotas',
-            text: 'La administración de las coutas de cada aportante nunca fue tan sencillo. Envia alertas automaticas antes de la fecha de pago para que a nadie se le pase por alto. ',
+            text: 'La administración de las coutas de cada aportante nunca fue tan sencillo. Envia alertas automáticas antes de la fecha de pago para que a nadie se le pase por alto. ',
             icon: mdiCashMultiple,
             color: appGreenColor
         }
@@ -96,22 +96,20 @@ class LandingPage extends Component {
                         bgImageAlt='neighborhood'
                         strength={700}
                     >
-                            <Row className='container' style={{ height: '400px' }}>
-                                <Col className='valign-wrapper center banner-info' m={6}>
+                            <Row className='container' style={{ height: '500px' }}>
+                                <Col className='valign-wrapper center banner-info' m={7}>
                                     <div>
                                         <Flip left><img className='responsive-img banner-logo' src={logoGlow} alt='Logo'/></Flip>
-                                        <p className='banner-text'>La primera aplicación que mejora la comunicación de los conjuntos vecinales a travez de una red privada orientada a la transparencia y participación.</p>
-                                        <Row>
-                                            <Button 
-                                                waves='light'
-                                                style={{borderRadius: 15, backgroundColor: appGreenColor}}
-                                                onClick={() => {window.scrollTo(0, this.features.current.offsetTop)}}
-                                                >Quiero Saber Más
-                                            </Button>
-                                        </Row>
+                                        <p className='banner-text'>Plataforma de administración de comunidades a través de una red social exclusiva y privada orientada a la transparencia y la comunicación.</p>
+                                        <Button 
+                                            waves='light'
+                                            style={{borderRadius: 15, backgroundColor: appGreenColor}}
+                                            onClick={() => {window.scrollTo(0, this.features.current.offsetTop)}}
+                                            >Quiero Saber Más
+                                        </Button>    
                                     </div>
                                 </Col>  
-                                <Col  m={6}>
+                                <Col className='center' m={5}>
                                     <img className='responsive-img banner-screenshot' src={screenshot} alt='screenshot'/>
                                 </Col>
                             </Row>
