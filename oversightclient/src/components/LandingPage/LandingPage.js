@@ -6,7 +6,7 @@ import { Row, Col } from 'react-materialize'
 import Footer from 'react-materialize/lib/Footer'
 import {Zoom, Flip} from 'react-reveal'
  
-//Images
+//Images local
 import neighborhood from '../../assets/houses.jpg'
 import peopleSocial from '../../assets/people-casual.jpg'
 import peopleAdmin from '../../assets/admin-guy.jpg'
