@@ -167,7 +167,7 @@ class LandingPage extends Component {
                         />
 
                         <Caracteristic
-                            caracteristic = {caracteristic8 }
+                            caracteristic = {caracteristic8}
                         />
                         </Zoom>
                     </Row>

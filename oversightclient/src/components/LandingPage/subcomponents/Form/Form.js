@@ -71,9 +71,9 @@ class Form extends Component {
                             <div className='center'>
                             <h5>¿Quieres Oversight en tu comunidad?</h5>
                             <div className='form-container'>
-                                <TextInput onChange={e => this.setState({name : e.target.value})}  label='Nombre y Apellido'/>
-                                <TextInput onChange={e => this.setState({email : e.target.value})} email validate label='Correo Electrónico'/>
-                                <Textarea onChange={e => this.setState({comment : e.target.value})}  label='Comentario'/>
+                                <TextInput onChange={e => this.setState({name : e.target.value})} icon={<Icon color={appGreyColor} path={mdiAccount}/>} label='Nombre y Apellido'/>
+                                <TextInput onChange={e => this.setState({email : e.target.value})} email validate icon={<Icon color={appRedColor} path={mdiMailRu}/>} label='Correo Electrónico'/>
+                                <Textarea onChange={e => this.setState({comment : e.target.value})} icon={<Icon color={appGreenColor} path={mdiComment}/>} label='Comentario'/>
                             </div>
                             <Button 
                                 className='right'
