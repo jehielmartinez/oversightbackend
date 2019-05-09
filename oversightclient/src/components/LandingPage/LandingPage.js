@@ -109,9 +109,9 @@ class LandingPage extends Component {
                                         </Button>    
                                     </div>
                                 </Col>  
-                                {/* <Col className='center' m={5}>
+                                <Col className='center' m={5}>
                                     <img className='responsive-img banner-screenshot' src={screenshot} alt='screenshot'/>
-                                </Col> */}
+                                </Col>
                             </Row>
                     </Parallax>
                 </div>
@@ -174,7 +174,7 @@ class LandingPage extends Component {
                 </div>
                 <Form/>
                 <Footer
-                    copyrights={<p> Copyright &copy; 2019 Oversight. Todos los Derechos Reservados</p>}
+                    copyrights='Copyright &copy; 2019 Oversight. Todos los Derechos Reservados'
                     links={<ul>
                         <li className='valign-wrapper'><Icon path={mdiFacebookBox} size={2} color={'white'}/><a className='social-link' target='_blank' rel='noopener noreferrer' href='https://www.facebook.com/oversighthn'>@oversighthn</a></li>
                         <li className='valign-wrapper'><Icon path={mdiGmail} size={2} color={'white'}/><a className='social-link' rel='noopener noreferrer' href='mailto:contacto@oversight.hn'>contacto@oversight.hn</a></li>
