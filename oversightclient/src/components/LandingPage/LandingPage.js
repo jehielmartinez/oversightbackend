@@ -109,9 +109,9 @@ class LandingPage extends Component {
                                         </Button>    
                                     </div>
                                 </Col>  
-                                <Col className='center' m={5}>
+                                {/* <Col className='center' m={5}>
                                     <img className='responsive-img banner-screenshot' src={screenshot} alt='screenshot'/>
-                                </Col>
+                                </Col> */}
                             </Row>
                     </Parallax>
                 </div>
