@@ -34,6 +34,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(allowCrossDomain);
 
+app.use(express.static('client'));
+
 //API Routes
 app.use('/server/complaints', complaintRoutes);
 app.use('/server/publications', publicationRoutes);
@@ -45,11 +47,15 @@ io.on('connection', (socket) => {
     console.log('Client Connected');
 });
 
+app.get('/', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'client', 'index.html'));
+});
+
 //index.html client render
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static('client/build'));
+    app.use(express.static('client'));
     app.get('/', (req, res) => {
-      res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+      res.sendFile(path.resolve(__dirname, 'client', 'index.html'));
     });
   }
 
