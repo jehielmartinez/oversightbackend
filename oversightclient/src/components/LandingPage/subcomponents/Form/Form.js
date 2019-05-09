@@ -39,7 +39,7 @@ class Form extends Component {
                 comment
             }
 
-        axios.post(`http://${window.location.hostname}/server/client/submit`, contact)
+        axios.post(`https://${window.location.hostname}/server/client/submit`, contact)
         .then((res)=>{
             console.log(res)
             Swal.fire({
