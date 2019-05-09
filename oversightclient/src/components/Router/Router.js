@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Route, Switch, BrowserRouter} from 'react-router-dom';
+import {Redirect, Route, Switch, BrowserRouter} from 'react-router-dom';
 import LandingPage from '../LandingPage/LandingPage';
 
 class Router extends Component {
@@ -7,9 +7,10 @@ class Router extends Component {
         return (
             <BrowserRouter>
                 <Switch>
+                    <Redirect exact from='/' to='/landing'/>
                     <Route
                         exact
-                        path='/'
+                        path='/landing'
                         component={LandingPage}
                    />
                 </Switch>
