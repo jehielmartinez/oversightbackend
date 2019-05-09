@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Textarea, MediaBox, TextInput } from 'react-materialize';
 import axios from 'axios';
 import Swal from 'sweetalert2'
-
 import Col from 'react-materialize/lib/Col';
 import '../Form/Form.css'
 import Row from 'react-materialize/lib/Row';
