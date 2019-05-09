@@ -83,8 +83,7 @@ class Form extends Component {
                             </Button>
                             </div>
                         </Col>
-                    </Row>
-                  
+                    </Row>    
             </form>
         );
     }
