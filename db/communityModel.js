@@ -16,6 +16,10 @@ let communitySchema = new mongoose.Schema({
         type: String,
         trim:true
     },
+    email:{
+        type: String,
+        trim: true
+    },
     createdAt: {
         type: String,
         required: true

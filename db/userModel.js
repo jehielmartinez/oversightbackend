@@ -45,9 +45,12 @@ let userSchema = new mongoose.Schema({
         type: Buffer,
         select: false
     },
-    home: {
+    community: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Home'
+        ref: 'Community'
+    },
+    communityPasscode:{
+        type: String
     },
     createdAt:{
         type: String,
