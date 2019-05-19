@@ -72,7 +72,7 @@ userSchema.virtual('publications', {
 
 userSchema.methods.generateAuthToken = async function () {
     const user = this
-    const token = jwt.sign({_id: user._id.toString()}, process.env.SECRET || 'mysecretstring') //Replace for a ENV Variable
+    const token = jwt.sign({_id: user._id.toString()}, process.env.SECREAT) //Replace for a ENV Variable
 
     user.tokens = user.tokens.concat({token})
     await user.save()
