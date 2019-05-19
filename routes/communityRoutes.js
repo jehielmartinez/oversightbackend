@@ -4,6 +4,7 @@ const moment = require('moment');
 const auth = require('../middleware/auth');
 
 const {Community} = require('../db/communityModel');
+const {User} = require('../db/userModel');
 
 //NEW COMMUNITY
 router.post('/new', auth, async (req, res) => {
@@ -47,9 +48,9 @@ router.patch('/newpasscode', auth, async (req, res) => {
 })
 
 //ADD NEW USER TO COMMUNITY     
-router.post('/adduser', auth, async (req, res) => {
+router.post('/adduser/:passcode', auth, async (req, res) => {
     try {
-        const community = await Community.checkPasscode(req.body.passcode)
+        const community = await Community.checkPasscode(req.params.passcode)
 
         req.user.community = community._id
         await req.user.save()
@@ -57,6 +58,19 @@ router.post('/adduser', auth, async (req, res) => {
         res.send(community)
     } catch (err) {
         res.status(404).send(err.toString())
+    }
+})
+
+//SEND PASSCODE TO USER PHONE
+router.patch('/sendpasscode', auth, async (req, res) => {
+    try {
+        if (req.user.admin){
+           const community = await Community.findById(req.user.community)
+           await User.findOneAndUpdate({'phone': req.body.phone}, {communityPasscode: community.passcode.code})
+           res.send()
+        }
+    } catch (err){
+        res.status(400).send(err.toString())
     }
 })
 
