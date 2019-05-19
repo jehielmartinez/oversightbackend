@@ -37,8 +37,8 @@ communitySchema.virtual('publications', {
     foreignField: 'community'
 })
 
-communitySchema.virtual('users', {
-    ref: 'User',
+communitySchema.virtual('homes', {
+    ref: 'Home',
     localField: '_id',
     foreignField: 'community'
 })

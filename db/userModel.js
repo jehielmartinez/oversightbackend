@@ -9,7 +9,7 @@ let userSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    secondName: {
+    lastName: {
         type: String,
         trim: true
     },
@@ -19,9 +19,14 @@ let userSchema = new mongoose.Schema({
         minlength: 7,
         trim: true
     },
-    email: {
+    phone:{
         type: String,
         required: true,
+        unique: true,
+        trim: true,
+    },
+    email: {
+        type: String,
         unique: true,
         trim: true,
         lowercase: true,
@@ -36,13 +41,13 @@ let userSchema = new mongoose.Schema({
         default: false,
         required: true
     },
-    community:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Community'
-    },
     avatar:{
         type: Buffer,
         select: false
+    },
+    home: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Home'
     },
     createdAt:{
         type: String,
