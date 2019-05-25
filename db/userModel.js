@@ -56,12 +56,9 @@ let userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    tokens: [{
-        token: {
-            type: String,
-            require: true
-        }
-    }]
+    token: {
+        type: String
+    }
 })
 
 userSchema.virtual('publications', {
@@ -72,9 +69,9 @@ userSchema.virtual('publications', {
 
 userSchema.methods.generateAuthToken = async function () {
     const user = this
-    const token = jwt.sign({_id: user._id.toString()}, process.env.SECRET) //Replace for a ENV Variable
+    const token = jwt.sign({_id: user._id.toString()}, process.env.SECRET)
 
-    user.tokens = user.tokens.concat({token})
+    user.token = token
     await user.save()
 
     return token
@@ -85,7 +82,7 @@ userSchema.methods.toJSON = function () {
     const userProfile = user.toObject()
 
     delete userProfile.password
-    delete userProfile.tokens
+    delete userProfile.token
 
     return userProfile
 }
