@@ -24,15 +24,13 @@ let communitySchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    passcode: {
-        code: {
+    passcodes: [{
+        passcode: {
             type: String,
-            trim: true,
-        },
-        expiration: {
-            type: String,
+            required: true
         }
-    }   
+    }]
+       
 })
 
 communitySchema.virtual('publications', {
@@ -49,36 +47,31 @@ communitySchema.virtual('homes', {
 
 communitySchema.statics.checkPasscode = async (passcode) => {
 
-        const community = await Community.findOne({'passcode.code': passcode})
-        const today = moment().valueOf()
+        const community = await Community.findOne({'passcodes.passcode': passcode})
 
         if(!community){
-            throw new Error('Community Not found!')
-        }
-        
-        if(community.passcode.expiration < today){
-            throw new Error('Passcode expired!')
+            throw new Error('Access Denied')
         } 
         
         return community
 }
 
-communitySchema.methods.generatePasscode = async function (expiration) {
+communitySchema.methods.generatePasscode = async function () {
     const community = this
-    const code = Math.random().toString(36).substring(2, 4) + Math.random().toString(36).substring(2, 8)
+    const passcode = Math.random().toString(36).substring(2, 4) + Math.random().toString(36).substring(2, 8)
 
-    community.passcode = {code, expiration}
+    community.passcodes = community.passcodes.concat({passcode})
 
     await community.save()
 
-    return code
+    return passcode
 }
 
 communitySchema.methods.toJSON = function () {
     const community = this
     const publicCommunity = community.toObject()
 
-    delete publicCommunity.passcode
+    delete publicCommunity.passcodes
 
     return publicCommunity
 }

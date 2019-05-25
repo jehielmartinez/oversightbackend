@@ -4,14 +4,13 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "client": "npm start --prefix client",
-    "server": "nodemon server.js"
+    "start": "node server.js",
+    "dev": "env-cmd nodemon server.js"
   },
   "author": "Jehiel Martinez",
   "license": "ISC",
   "dependencies": {
+    "@sendgrid/mail": "^6.4.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "cloudinary": "^1.13.2",
@@ -29,6 +28,7 @@
   },
   "devDependencies": {
     "concurrently": "^4.1.0",
+    "env-cmd": "^9.0.1",
     "nodemon": "^1.18.10"
   },
   "engines": {

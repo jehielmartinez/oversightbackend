@@ -5,7 +5,7 @@ const socketIO = require('socket.io');
 const http = require('http');
 
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT;
 const server = http.createServer(app);
 const io = socketIO(server);
 
@@ -17,7 +17,7 @@ const communityRoutes = require('./routes/communityRoutes');
 const landingRoutes = require('./routes/landingRoutes');
 
 //DB Connection
-const connectionString = process.env.DATABASE_URI || 'mongodb://localhost:27017/oversight';
+const connectionString = process.env.DATABASE_URI;
 mongoose.connect(connectionString, { useNewUrlParser: true });
 
 

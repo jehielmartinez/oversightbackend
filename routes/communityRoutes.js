@@ -2,12 +2,17 @@ const express = require('express');
 const router = express.Router();
 const moment = require('moment');
 const auth = require('../middleware/auth');
+const { sendMagicLink, sendRegistration } = require('../emails/emailFunctions');
 
 const {Community} = require('../db/communityModel');
 const {User} = require('../db/userModel');
 
 //NEW COMMUNITY
 router.post('/new', auth, async (req, res) => {
+    
+    if (req.user.admin) {
+        res.status(400).send({error: 'Ya es administrador'})
+    }
 
     const community = new Community({
         ...req.body.community,
@@ -17,7 +22,6 @@ router.post('/new', auth, async (req, res) => {
     try {
 
         await community.save()
-        await community.generatePasscode(req.body.expiration)
 
         req.user.community = community._id
         req.user.admin = true
@@ -48,27 +52,48 @@ router.patch('/newpasscode', auth, async (req, res) => {
 })
 
 //ADD NEW USER TO COMMUNITY     
-router.post('/adduser/:passcode', auth, async (req, res) => {
-    try {
-        const community = await Community.checkPasscode(req.params.passcode)
+router.post('/adduser', auth, async (req, res) => {
+    const passcode = req.query.passcode
 
-        req.user.community = community._id
+    try {
+        const community = await Community.checkPasscode(passcode)
+
+        req.user.community = community._id //register user to community
+
+        community.passcodes = community.passcodes.filter(item => { //delete used passcode
+            return item.passcode !== passcode
+        })
+
+        await community.save()
         await req.user.save()
 
-        res.send(community)
+        res.send()
     } catch (err) {
         res.status(404).send(err.toString())
     }
 })
 
-//SEND PASSCODE TO USER PHONE
-router.patch('/sendpasscode', auth, async (req, res) => {
+//SEND LINK THRU EMAIL
+router.post('/sendpasscode', auth, async (req, res) => {
+
+    if (!req.user.admin){
+        res.status(400).send({error: 'No es Administrador'})
+    }
+
     try {
-        if (req.user.admin){
            const community = await Community.findById(req.user.community)
-           await User.findOneAndUpdate({'phone': req.body.phone}, {communityPasscode: community.passcode.code})
+           const passcode = await community.generatePasscode()
+
+           const registeredUser = await User.findOne({'email': req.query.email}) //check if user is registered
+
+           if (!registeredUser){
+            sendRegistration(req.query.email, community.name, passcode)
+           } else {
+            sendMagicLink(req.query.email, community.name, passcode)
+           }
+
            res.send()
-        }
+        
     } catch (err){
         res.status(400).send(err.toString())
     }
