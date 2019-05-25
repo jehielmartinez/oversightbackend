@@ -100,11 +100,21 @@ router.post('/sendpasscode', auth, async (req, res) => {
 })
 
 //GET COMMUNITY PUBLICATIONS
+//url: /publications?limit=10&skip=0
 router.get('/publications', auth, async (req, res) => {
     try {   
         const community = await Community.findById(req.user.community)
         
-        await community.populate({path: 'publications', populate: {path: 'owner'}}).execPopulate()
+        await community.populate({
+            path: 'publications', 
+            options: {
+                limit: parseInt(req.query.limit),
+                skip: parseInt(req.query.skip),
+                sort:{
+                    createdAt: -1 //sorted newest first
+                }
+            },
+            populate: {path: 'owner'}}).execPopulate()
 
         res.send(community.publications)
     } catch (err) {
