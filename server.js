@@ -17,8 +17,8 @@ const communityRoutes = require('./routes/communityRoutes');
 const landingRoutes = require('./routes/landingRoutes');
 
 //DB Connection
-const connectionString = process.env.DATABASE_URI;
-mongoose.connect(connectionString, { useNewUrlParser: true });
+const connectionString = process.env.DATABASE_URI
+mongoose.connect(connectionString, { useNewUrlParser: true })
 
 
 var allowCrossDomain = function(req, res, next) {

@@ -12,10 +12,6 @@ let clientSchema = new mongoose.Schema({
     email:{
         type: String,
         trim: true
-    },
-    comment:{
-        type: String,
-        trim: true
     }
 })
 
