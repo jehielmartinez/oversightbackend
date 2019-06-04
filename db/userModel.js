@@ -41,6 +41,10 @@ let userSchema = new mongoose.Schema({
         default: false,
         required: true
     },
+    onRequest:{
+        type: Boolean,
+        default: false
+    },
     avatar:{
         type: Buffer,
         select: false
@@ -48,9 +52,6 @@ let userSchema = new mongoose.Schema({
     community: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Community'
-    },
-    communityPasscode:{
-        type: String
     },
     createdAt:{
         type: String,

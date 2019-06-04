@@ -6,6 +6,7 @@ const { sendMagicLink, sendRegistration } = require('../emails/emailFunctions');
 
 const {Community} = require('../db/communityModel');
 const {User} = require('../db/userModel');
+const {Request} = require('../db/requestModel');
 
 //NEW COMMUNITY
 router.post('/new', auth, async (req, res) => {
@@ -33,6 +34,19 @@ router.post('/new', auth, async (req, res) => {
     }
 })
 
+//GET ALL COMMUNITIES
+//eventually change to a position based search and return five nearest.
+router.get('/all-communities', auth, async (req, res) => {
+    try {
+        const communities = await Community.find()
+
+        res.status(200).send(communities)
+        
+    } catch (err) {
+        res.status(404).send()
+    }
+})
+
 //GENERATE NEW PASSCODE
 router.patch('/newpasscode', auth, async (req, res) => {
 
@@ -51,49 +65,46 @@ router.patch('/newpasscode', auth, async (req, res) => {
     }
 })
 
-//ADD NEW USER TO COMMUNITY     
-router.post('/adduser', auth, async (req, res) => {
-    const passcode = req.query.passcode
+//RESPONSE REQUEST
+//body should be a request object  
+router.patch('/response-request', auth, async (req, res) => {
 
     try {
-        const community = await Community.checkPasscode(passcode)
+        const request = await Request.findById(req.body._id)
+        const user = await User.findById(req.body.user)
 
-        req.user.community = community._id //register user to community
+        request.status = req.body.status
+        user.onRequest = false
+          
+        if (req.body.status === 'accepted'){
+            user.community = req.body.community
+        }
 
-        community.passcodes = community.passcodes.filter(item => { //delete used passcode
-            return item.passcode !== passcode
-        })
+        await user.save()
+        await request.save()
 
-        await community.save()
-        await req.user.save()
-
-        res.send()
+        res.status(200).send()
     } catch (err) {
         res.status(404).send(err.toString())
     }
 })
 
-//SEND LINK THRU EMAIL
-router.post('/sendpasscode', auth, async (req, res) => {
+//CREATE REQUEST
+router.post('/send-request', auth, async (req, res) => {
 
-    if (!req.user.admin){
-        res.status(400).send({error: 'No es Administrador'})
-    }
+    const request = new Request({
+        user: req.user._id,
+        community: req.body.community,
+        createdAt: moment().valueOf()
+    })
 
     try {
-           const community = await Community.findById(req.user.community)
-           const passcode = await community.generatePasscode()
+           await request.save()
 
-           const registeredUser = await User.findOne({'email': req.query.email}) //check if user is registered
+           req.user.onRequest = true
+           await req.user.save()
 
-           if (!registeredUser){
-            sendRegistration(req.query.email, community.name, passcode)
-           } else {
-            sendMagicLink(req.query.email, community.name, passcode)
-           }
-
-           res.send()
-        
+           res.status(201).send()
     } catch (err){
         res.status(400).send(err.toString())
     }
@@ -134,6 +145,5 @@ router.get('/users', auth, async (req, res) => {
         res.status(404).send({error: err})
     }
 })
-
 
 module.exports = router;

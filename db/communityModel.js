@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const moment = require('moment');
 
 let communitySchema = new mongoose.Schema({
     name: {
@@ -12,9 +11,19 @@ let communitySchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    coordinates:{
+        lng: {
+            type: Number,
+            trim: true
+        },
+        lat: {
+            type: Number,
+            trim: true
+        }
+    },
     phone:{
         type: String,
-        trim:true
+        trim: true
     },
     email:{
         type: String,
@@ -30,7 +39,6 @@ let communitySchema = new mongoose.Schema({
             required: true
         }
     }]
-       
 })
 
 communitySchema.virtual('publications', {
@@ -39,8 +47,8 @@ communitySchema.virtual('publications', {
     foreignField: 'community'
 })
 
-communitySchema.virtual('homes', {
-    ref: 'Home',
+communitySchema.virtual('users', {
+    ref: 'User',
     localField: '_id',
     foreignField: 'community'
 })
