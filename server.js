@@ -17,7 +17,14 @@ const communityRoutes = require('./routes/communityRoutes');
 const landingRoutes = require('./routes/landingRoutes');
 
 //DB Connection
-const connectionString = process.env.DATABASE_URI
+const connectionString = 'mongodb://localhost:27017/oversight'
+
+// if (__DEV__){
+//   connectionString = 'mongodb://localhost:27017/oversight'
+// } else {
+//   connectionString = process.env.DATABASE_URI
+// }
+
 mongoose.connect(connectionString, { useNewUrlParser: true })
 
 

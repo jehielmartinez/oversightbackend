@@ -8,17 +8,18 @@ let communitySchema = new mongoose.Schema({
     },
     address: {
         type: String,
-        required: true,
         trim: true
     },
     coordinates:{
         lng: {
             type: Number,
-            trim: true
+            trim: true,
+            required:true
         },
         lat: {
             type: Number,
-            trim: true
+            trim: true,
+            required:true
         }
     },
     phone:{

@@ -2,13 +2,13 @@ const express = require('express');
 const router = express.Router();
 const moment = require('moment');
 const auth = require('../middleware/auth');
-const { sendMagicLink, sendRegistration } = require('../emails/emailFunctions');
 
 const {Community} = require('../db/communityModel');
 const {User} = require('../db/userModel');
 const {Request} = require('../db/requestModel');
 
 //NEW COMMUNITY
+//body = {name, address, phone?, email?, coordinates?}
 router.post('/new', auth, async (req, res) => {
     
     if (req.user.admin) {
@@ -69,6 +69,10 @@ router.patch('/newpasscode', auth, async (req, res) => {
 //body should be a request object  
 router.patch('/response-request', auth, async (req, res) => {
 
+    if(!req.user.admin){
+        res.status(400).send('Usted no es administrador') //Change for a middleware who compare admin and community
+    }
+
     try {
         const request = await Request.findById(req.body._id)
         const user = await User.findById(req.body.user)
@@ -92,6 +96,10 @@ router.patch('/response-request', auth, async (req, res) => {
 //CREATE REQUEST
 router.post('/send-request', auth, async (req, res) => {
 
+    if (req.user.onRequest){
+        res.status(400).send('User already requesting')
+    }
+
     const request = new Request({
         user: req.user._id,
         community: req.body.community,
@@ -104,7 +112,7 @@ router.post('/send-request', auth, async (req, res) => {
            req.user.onRequest = true
            await req.user.save()
 
-           res.status(201).send()
+           res.status(201).send(request)
     } catch (err){
         res.status(400).send(err.toString())
     }
