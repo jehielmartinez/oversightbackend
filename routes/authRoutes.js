@@ -56,7 +56,12 @@ router.post('/logout', auth, async (req, res) => {
 
 //GET MY USER
 router.get('/me', auth, async (req, res) => {
-    res.send(req.user)
+    try {
+        await req.user.populate('community').execPopulate()
+        res.send(req.user)
+    } catch (err) {
+        res.status(400).send() 
+    }
 })
 
 //DELETE ME

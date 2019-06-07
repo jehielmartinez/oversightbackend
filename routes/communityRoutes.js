@@ -94,6 +94,7 @@ router.patch('/response-request', auth, async (req, res) => {
 })
 
 //CREATE REQUEST
+//Body= {community: communityId}
 router.post('/send-request', auth, async (req, res) => {
 
     if (req.user.onRequest){
