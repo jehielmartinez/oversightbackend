@@ -18,6 +18,26 @@ const upload = multer({
     }
   });
 
+//CREATE POLL
+  router.post('/publish-poll', auth, async(req, res) => {
+      let newPoll = new Publication({
+          content: req.body.content,
+          createdAt: moment().valueOf(),
+          media: null,
+          owner: req.user._id,
+          mediaExist: false,
+          community: req.user.community,
+          pollExist: true,
+          poll: req.body.poll
+      })
+      try {
+        await newPoll.save()
+        res.status(201).send({publication: newPoll, message: 'Poll Created'});
+    } catch (err) {
+        res.status(400).send({error: err})
+    }
+  })
+
 //CREATE NEW PUBLICATION
     router.post('/publish', auth, upload.single('media'), async (req, res) => {
         let image
@@ -36,7 +56,8 @@ const upload = multer({
             media: image,
             owner: req.user._id,
             mediaExist: req.body.mediaExist,
-            community: req.user.community
+            community: req.user.community,
+            pollExist: false
         });
 
         try {

@@ -33,7 +33,30 @@ let publicationSchema = new mongoose.Schema({
             ref: 'User'
         }
     }],
+    poll: {
+        options: [{
+            description: {
+                type: String,
+                trim: true,
+                required: true
+            },
+            count: {
+                type: Number,
+                trim: true,
+                required: true,
+                default: 0
+            }  
+        }],
+        expiration: {
+            type: String,
+            required: true
+        }
+    },
     mediaExist: {
+        type: Boolean,
+        required: true
+    },
+    pollExist: {
         type: Boolean,
         required: true
     }
