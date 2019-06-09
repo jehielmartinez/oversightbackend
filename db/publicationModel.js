@@ -38,18 +38,15 @@ let publicationSchema = new mongoose.Schema({
             description: {
                 type: String,
                 trim: true,
-                required: true
             },
             count: {
                 type: Number,
                 trim: true,
-                required: true,
                 default: 0
             }  
         }],
         expiration: {
             type: String,
-            required: true
         }
     },
     mediaExist: {
